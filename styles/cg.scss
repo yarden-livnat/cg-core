@@ -1,0 +1,21 @@
+@import "tagNode";
+
+.cg {
+  .overlay {
+    fill: none;
+    pointer-events: all;
+  }
+
+  .link {
+    fill: none;
+    stroke: #ddd;
+    stroke-width: 0.5px;
+    opacity: 1;
+    //shape-rendering: crispEdges;
+
+    &.highlight {
+      stroke: red;
+      stroke-opacity: 1;
+    }
+  }
+}

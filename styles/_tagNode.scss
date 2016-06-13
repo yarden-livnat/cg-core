@@ -1,0 +1,53 @@
+.tagNode {
+  .anchor {
+    fill: lightgray;
+    stroke: green; //#fff;
+    stroke-width: 0.5px;
+    &.fixed {
+      fill: red;
+    }
+  }
+
+  .tag {
+    .frame {
+      fill: #707070;
+    }
+
+    .bg {
+      fill: #f0f0f0;
+    }
+
+    text {
+      font-size: 1.5em;
+      font-weight: normal;
+      stroke: none;
+      -webkit-user-select: none;  /* Chrome all / Safari all */
+      -moz-user-select: none;     /* Firefox all */
+      -ms-user-select: none;
+      user-select: none;
+
+      &.excluded {
+        text-decoration: line-through;
+      }
+    }
+  }
+
+  &.selected {
+    //.circle {
+    //  fill: red;
+    //}
+  }
+
+  &.excluded {
+    .tag .bg {
+      fill: #fafafa;
+    }
+    .tag .text {
+
+    }
+  }
+
+  &.highlight {
+    fill: red;
+  }
+}
