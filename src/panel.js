@@ -8,7 +8,7 @@ import Link from './renderer/lineLink';
 // import Link from './renderer/arcLink';
 // import Link from './renderer/gradientLink';
 import tagNode from './renderer/tagNode';
-import collide from './forceRectCollide';
+import collide from './forceRectCollide'; 
 import 'styles/cg.css!';
 
 export default function() {

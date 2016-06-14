@@ -26,12 +26,20 @@ gulp.task('sass', function () {
 gulp.task('build', function(cb) {
   exec('jspm build cg - d3 - css build/cg.js --format umd  --skip-rollup --dev', function(err) {
     console.log('jspm build ', err || '');
-    if (err) return cb(err); // return error
-    cb(); // finished task
+    if (err) return cb(err);
+    cb();
   });
 });
 
-gulp.task('watch-build', function() {
+gulp.task('dist', function(cb) {
+  exec('jspm build cg - d3 - css build/cg.js --format umd', function(err) {
+    console.log('jspm build ', err || '');
+    if (err) return cb(err);
+    cb();
+  });
+});
+
+gulp.task('watch-build', ['build'], function() {
   gulp.watch('src/**/*.js', ['build']);
 });
 
@@ -39,6 +47,11 @@ gulp.task('watch-sass', function() {
   gulp.watch('styles/**/*.scss', ['sass']);
 });
 
-gulp.task('watch', ['watch-build', 'watch-sass'] );
+// gulp.task('watch', ['watch-build', 'watch-sass'] );
+
+gulp.task('watch',['sass', 'build'], function() {
+  gulp.watch('styles/**/*.scss', ['sass']);
+  gulp.watch('src/**/*.js', 'styles/cs.css', ['build']);
+});
 
 gulp.task('default', ['sass']);
