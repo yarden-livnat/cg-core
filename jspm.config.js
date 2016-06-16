@@ -36,7 +36,7 @@ SystemJS.config({
     "assert": "github:jspm/nodelibs-assert@0.2.0-alpha",
     "buffer": "github:jspm/nodelibs-buffer@0.2.0-alpha",
     "child_process": "github:jspm/nodelibs-child_process@0.2.0-alpha",
-    "css": "github:systemjs/plugin-css@0.1.22",
+    "css": "github:systemjs/plugin-css@0.1.23",
     "d3": "npm:d3@4.0.0-alpha.44",
     "events": "github:jspm/nodelibs-events@0.2.0-alpha",
     "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",
@@ -103,7 +103,7 @@ SystemJS.config({
         "d3-dispatch": "npm:d3-dispatch@0.4.4",
         "d3-drag": "npm:d3-drag@0.2.2",
         "d3-transition": "npm:d3-transition@0.2.10",
-        "d3-interpolate": "npm:d3-interpolate@0.8.0",
+        "d3-interpolate": "npm:d3-interpolate@0.8.3",
         "d3-selection": "npm:d3-selection@0.7.3"
       }
     },
@@ -137,7 +137,7 @@ SystemJS.config({
       "map": {
         "d3-dispatch": "npm:d3-dispatch@0.4.4",
         "d3-ease": "npm:d3-ease@0.7.0",
-        "d3-interpolate": "npm:d3-interpolate@0.8.0",
+        "d3-interpolate": "npm:d3-interpolate@0.8.3",
         "d3-timer": "npm:d3-timer@0.4.4",
         "d3-color": "npm:d3-color@0.4.2",
         "d3-selection": "npm:d3-selection@0.7.3"
@@ -149,14 +149,14 @@ SystemJS.config({
         "d3-collection": "npm:d3-collection@0.2.0",
         "d3-format": "npm:d3-format@0.5.1",
         "d3-color": "npm:d3-color@0.4.2",
-        "d3-interpolate": "npm:d3-interpolate@0.8.0",
-        "d3-time": "npm:d3-time@0.2.5",
+        "d3-interpolate": "npm:d3-interpolate@0.8.3",
+        "d3-time": "npm:d3-time@0.2.6",
         "d3-time-format": "npm:d3-time-format@0.3.2"
       }
     },
     "npm:d3-time-format@0.3.2": {
       "map": {
-        "d3-time": "npm:d3-time@0.2.5"
+        "d3-time": "npm:d3-time@0.2.6"
       }
     },
     "npm:d3-dsv@0.3.2": {
@@ -210,6 +210,11 @@ SystemJS.config({
         "process-nextick-args": "npm:process-nextick-args@1.0.7",
         "string_decoder": "npm:string_decoder@0.10.31",
         "util-deprecate": "npm:util-deprecate@1.0.2"
+      }
+    },
+    "npm:d3-interpolate@0.8.3": {
+      "map": {
+        "d3-color": "npm:d3-color@0.4.2"
       }
     }
   }

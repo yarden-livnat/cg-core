@@ -62,6 +62,9 @@ export default function() {
       .classed('selected', function(d) { return d.selected;})
       .classed('excluded', function(d) {return d.excluded; });
 
+    selection.select('.tag')
+      .classed('highlighted', function(d) {return d.highlighted; });
+
     let t = selection.transition('visnode').ease(d3.easeLinear).duration(750);
 
     t.select('text')
@@ -80,7 +83,7 @@ export default function() {
       .attr('y', function(d) { return d.bbox.y* d.s -1; });
 
     t.select('.frame')
-      .style('opacity', d => (d.selected || d.excluded) ? 1: 0);
+      .style('opacity', d => (d.selected || d.excluded || d.highlighted) ? 1: 0);
 
     selection
       .each(function (d) {

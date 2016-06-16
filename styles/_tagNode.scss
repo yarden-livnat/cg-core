@@ -30,24 +30,15 @@
         text-decoration: line-through;
       }
     }
-  }
 
-  &.selected {
-    //.circle {
-    //  fill: red;
-    //}
-  }
+    &.highlighted {
+      .bg {
+        fill: yellow;
+      },
 
-  &.excluded {
-    .tag .bg {
-      fill: #fafafa;
+      text {
+        //fill: red;
+      }
     }
-    .tag .text {
-
-    }
-  }
-
-  &.highlight {
-    fill: red;
   }
 }

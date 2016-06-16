@@ -50,8 +50,8 @@ gulp.task('watch-sass', function() {
 // gulp.task('watch', ['watch-build', 'watch-sass'] );
 
 gulp.task('watch',['sass', 'build'], function() {
-  gulp.watch('styles/**/*.scss', ['sass']);
-  gulp.watch('src/**/*.js', 'styles/cs.css', ['build']);
+  gulp.watch('styles/**/*.scss', ['sass', 'build']);
+  gulp.watch('src/**/*.js', ['build']);
 });
 
 gulp.task('default', ['sass']);

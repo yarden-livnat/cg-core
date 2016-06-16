@@ -119,6 +119,10 @@ $__System.register('5', ['3', '4'], function (_export, _context) {
         return d.excluded;
       });
 
+      selection.select('.tag').classed('highlighted', function (d) {
+        return d.highlighted;
+      });
+
       var t = selection.transition('visnode').ease(d3.easeLinear).duration(750);
 
       t.select('text').attr('transform', function (d) {
@@ -146,7 +150,7 @@ $__System.register('5', ['3', '4'], function (_export, _context) {
       });
 
       t.select('.frame').style('opacity', function (d) {
-        return d.selected || d.excluded ? 1 : 0;
+        return d.selected || d.excluded || d.highlighted ? 1 : 0;
       });
 
       selection.each(function (d) {
@@ -1308,9 +1312,9 @@ $__System.register('1', ['9', 'b', 'c', 'd'], function (_export, _context) {
     execute: function () {}
   };
 });
-$__System.register('styles/cg.css!github:systemjs/plugin-css@0.1.22/css.js', [], false, function() {});
+$__System.register('styles/cg.css!github:systemjs/plugin-css@0.1.23/css.js', [], false, function() {});
 (function(c){if (typeof document == 'undefined') return; var d=document,a='appendChild',i='styleSheet',s=d.createElement('style');s.type='text/css';d.getElementsByTagName('head')[0][a](s);s[i]?s[i].cssText=c:s[a](d.createTextNode(c));})
-(".tagNode .anchor{fill:#d3d3d3;stroke:green;stroke-width:.5px}.tagNode .anchor.fixed{fill:red}.tagNode .tag .frame{fill:#707070}.tagNode .tag .bg{fill:#f0f0f0}.tagNode .tag text{font-size:1.5em;font-weight:400;stroke:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.tagNode .tag text.excluded{text-decoration:line-through}.tagNode.excluded .tag .bg{fill:#fafafa}.tagNode.highlight{fill:red}.cg .overlay{fill:none;pointer-events:all}.cg .link{fill:none;stroke:#ddd;stroke-width:.5px;opacity:1}.cg .link.highlight{stroke:red;stroke-opacity:1}");
+(".tagNode .anchor{fill:#d3d3d3;stroke:green;stroke-width:.5px}.tagNode .anchor.fixed{fill:red}.tagNode .tag .frame{fill:#707070}.tagNode .tag .bg{fill:#f0f0f0}.tagNode .tag text{font-size:1.5em;font-weight:400;stroke:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.tagNode .tag text.excluded{text-decoration:line-through}.tagNode .tag.highlighted .bg{fill:#ff0}.cg .overlay{fill:none;pointer-events:all}.cg .link{fill:none;stroke:#ddd;stroke-width:.5px;opacity:1}.cg .link.highlight{stroke:red;stroke-opacity:1}");
 })
 (function(factory) {
   if (typeof define == 'function' && define.amd)
