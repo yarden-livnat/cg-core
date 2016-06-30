@@ -44,7 +44,7 @@ $__System.register('2', ['3', '4'], function (_export, _context) {
     setters: [function (_) {
       createElement = _.default;
     }, function (_2) {
-      d3 = _2.default;
+      d3 = _2;
     }],
     execute: function () {}
   };
@@ -174,7 +174,7 @@ $__System.register('5', ['3', '4'], function (_export, _context) {
     setters: [function (_2) {
       createElement = _2.default;
     }, function (_3) {
-      d3 = _3.default;
+      d3 = _3;
     }],
     execute: function () {}
   };
@@ -454,7 +454,9 @@ $__System.register('9', ['2', '4', '5', '7', '8', 'a'], function (_export, _cont
       window.cg_dragging = d;
       var k = d3.zoomTransform(overlay.node()).k;
       dragTransform = d3.zoomIdentity.translate(d3.event.x - d.x * k, d3.event.y - d.y * k).scale(k);
-      simulation.fix(d);
+      // simulation.fix(d);
+      d.fx = d.x;
+      d.fy = d.y;
       var _iteratorNormalCompletion2 = true;
       var _didIteratorError2 = false;
       var _iteratorError2 = undefined;
@@ -464,7 +466,9 @@ $__System.register('9', ['2', '4', '5', '7', '8', 'a'], function (_export, _cont
           var node = _step2.value;
 
           node.overlap = false;
-          simulation.fix(node);
+          // simulation.fix(node);
+          node.fx = node.x;
+          node.fy = node.y;
         }
       } catch (err) {
         _didIteratorError2 = true;
@@ -485,14 +489,17 @@ $__System.register('9', ['2', '4', '5', '7', '8', 'a'], function (_export, _cont
     }
 
     function nodeDrag(d) {
+      // simulation.fix(d, d.x, d.y);
+
       var _dragTransform$invert = dragTransform.invert([d3.event.x, d3.event.y]);
 
       var _dragTransform$invert2 = _slicedToArray(_dragTransform$invert, 2);
 
       d.x = _dragTransform$invert2[0];
       d.y = _dragTransform$invert2[1];
-
-      simulation.fix(d, d.x, d.y);
+      var _ref = [d.x, d.y];
+      d.fx = _ref[0];
+      d.fy = _ref[1];
 
       updatePositions(d3.select(this));
 
@@ -507,10 +514,18 @@ $__System.register('9', ['2', '4', '5', '7', '8', 'a'], function (_export, _cont
 
           if (!node.fixed && node != d) {
             if (node.overlap) {
-              simulation.unfix(node);
+              // simulation.unfix(node);
+              delete node.fx;
+              delete node.fy;
               node.dragStart = now;
             } else {
-              if (now - node.dragStart > 1000) simulation.fix(node);
+              if (now - node.dragStart > 1000) {
+                var _ref2 = [node.x, node.y];
+                // simulation.fix(node);
+
+                node.fx = _ref2[0];
+                node.fy = _ref2[1];
+              }
             }
           }
           node.overlap = false;
@@ -542,7 +557,11 @@ $__System.register('9', ['2', '4', '5', '7', '8', 'a'], function (_export, _cont
         for (var _iterator4 = graph.nodes[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
           var node = _step4.value;
 
-          if (!node.fixed) simulation.unfix(node);
+          if (!node.fixed) {
+            // simulation.unfix(node);
+            delete node.fx;
+            delete node.fy;
+          }
         }
       } catch (err) {
         _didIteratorError4 = true;
@@ -572,7 +591,17 @@ $__System.register('9', ['2', '4', '5', '7', '8', 'a'], function (_export, _cont
       selection.selectAll('.anchor').on('click', function (d) {
         d3.event.preventDefault();
         d3.event.stopPropagation();
-        (d.fixed = !d.fixed) && simulation.fix(d) || simulation.unfix(d);
+        if (d.fixed = !d.fixed) {
+          var _ref3 = [d.x, d.y];
+          // simulation.fix(d);
+
+          d.fx = _ref3[0];
+          d.fy = _ref3[1];
+        } else {
+          // simulation.unfix(d);
+          delete d.fx;
+          delete d.fy;
+        }
         d3.select(this).classed('fixed', d.fixed);
       });
 
@@ -826,7 +855,7 @@ $__System.register('9', ['2', '4', '5', '7', '8', 'a'], function (_export, _cont
     setters: [function (_2) {
       Link = _2.default;
     }, function (_3) {
-      d3 = _3.default;
+      d3 = _3;
     }, function (_4) {
       tagNode = _4.default;
     }, function (_5) {

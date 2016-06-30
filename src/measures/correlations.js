@@ -2,7 +2,7 @@
  * Created by yarden on 5/31/16.
  */
 
-import d3 from 'd3';
+import * as d3 from 'd3';
 
 function variance(a) {
   if (a.var == undefined) {

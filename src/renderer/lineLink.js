@@ -3,7 +3,7 @@
  */
 
 import createElement from './createElement';
-import d3 from 'd3';
+import * as d3 from 'd3';
 
 export default function () {
   let widthScale = d3.scaleQuantize()

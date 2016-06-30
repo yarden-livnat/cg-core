@@ -1,7 +1,7 @@
 /**
  * renderd by yarden on 5/27/16.
  */
-import d3 from 'd3';
+import * as d3 from 'd3';
 import createElement from './createElement';
 
 export default function() {

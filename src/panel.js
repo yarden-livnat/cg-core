@@ -2,7 +2,7 @@
  * Created by yarden on 5/26/16.
  */
 
-import d3 from 'd3';
+import * as d3 from 'd3';
 import Link from './renderer/lineLink';
 // import Link from './renderer/directionalLink';
 // import Link from './renderer/arcLink';
@@ -99,17 +99,22 @@ export default function() {
     window.cg_dragging = d;
     let k = d3.zoomTransform(overlay.node()).k;
     dragTransform = d3.zoomIdentity.translate(d3.event.x-d.x*k, d3.event.y-d.y*k).scale(k);
-    simulation.fix(d);
+    // simulation.fix(d);
+    d.fx = d.x;
+    d.fy = d.y;
     for (let node of graph.nodes) {
       node.overlap = false;
-      simulation.fix(node);
+      // simulation.fix(node);
+      node.fx = node.x;
+      node.fy = node.y;
     }
     simulation.alphaTarget(0.2).restart();
   }
 
   function nodeDrag(d) {
     [d.x, d.y] = dragTransform.invert([d3.event.x, d3.event.y]);
-    simulation.fix(d, d.x, d.y);
+    // simulation.fix(d, d.x, d.y);
+    [d.fx, d.fy] = [d.x, d.y];
 
     updatePositions(d3.select(this));
 
@@ -117,12 +122,17 @@ export default function() {
     for (let node of graph.nodes) {
       if (!node.fixed && node != d) {
         if (node.overlap) {
-          simulation.unfix(node);
+          // simulation.unfix(node);
+          delete node.fx;
+          delete node.fy;
           node.dragStart = now;
         }
         else {
-          if (now - node.dragStart > 1000)
-            simulation.fix(node);
+          if (now - node.dragStart > 1000) {
+            // simulation.fix(node);
+            [node.fx, node.fy] = [node.x, node.y];
+          }
+
         }
       }
       node.overlap = false;
@@ -133,7 +143,11 @@ export default function() {
     window.cg_dragging = false;
     // if (!d.fixed) simulation.unfix(d);
     for (let node of graph.nodes) {
-      if (!node.fixed) simulation.unfix(node);
+      if (!node.fixed) {
+        // simulation.unfix(node);
+        delete node.fx;
+        delete node.fy;
+      }
     }
     simulation.alphaTarget(0);
   }
@@ -150,7 +164,14 @@ export default function() {
       .on('click', function(d) {
         d3.event.preventDefault();
         d3.event.stopPropagation();
-        (d.fixed = !d.fixed) && simulation.fix(d) || simulation.unfix(d);
+        if (d.fixed = !d.fixed) {
+          // simulation.fix(d);
+          [d.fx, d.fy] = [d.x, d.y];
+        } else {
+          // simulation.unfix(d);
+          delete d.fx;
+          delete d.fy;
+        }
         d3.select(this).classed('fixed', d.fixed);
       });
 

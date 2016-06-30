@@ -2,7 +2,7 @@
  * Created by yarden on 5/26/16.
  */
 
-import d3 from 'd3';
+import * as d3 from 'd3';
 import createElement from './createElement';
 
 let defs = [
