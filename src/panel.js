@@ -20,7 +20,8 @@ export default function() {
     d3nodes, d3links,
     listeners = d3.dispatch('select', 'exclude', 'highlight'),
     visNode = tagNode().label(d => d.label),
-    visLink = Link()
+    visLink = Link(),
+    showEdges = false
   ;
 
   let dbg_bboxes;
@@ -287,7 +288,7 @@ export default function() {
 
 
     selection = svgLinks.selectAll('.link')
-      .data(graph.links, d => d.id);
+      .data(showEdges  && graph.links || [], d => d.id);
 
     selection.exit()
       // .transition(edgeTransition).style('opacity', 0)
@@ -386,6 +387,12 @@ export default function() {
     //   if (!node.fixed) simulation.unfix(node);
     simulation.alpha(0.5).restart();
 
+  };
+
+  cg.showEdges = function(_) {
+    if (!arguments.length) return showEdges;
+    showEdges = _;
+    render();
   };
 
   cg.on = function() {

@@ -358,7 +358,8 @@ $__System.register('9', ['2', '4', '5', '7', '8', 'a'], function (_export, _cont
         visNode = tagNode().label(function (d) {
       return d.label;
     }),
-        visLink = Link();
+        visLink = Link(),
+        showEdges = false;
 
     var dbg_bboxes = void 0;
 
@@ -742,7 +743,7 @@ $__System.register('9', ['2', '4', '5', '7', '8', 'a'], function (_export, _cont
       // .transition(nodeTransition).style('opacity', 1)
       ;
 
-      selection = svgLinks.selectAll('.link').data(graph.links, function (d) {
+      selection = svgLinks.selectAll('.link').data(showEdges && graph.links || [], function (d) {
         return d.id;
       });
 
@@ -841,6 +842,12 @@ $__System.register('9', ['2', '4', '5', '7', '8', 'a'], function (_export, _cont
       // for (let node of graph.nodes)
       //   if (!node.fixed) simulation.unfix(node);
       simulation.alpha(0.5).restart();
+    };
+
+    cg.showEdges = function (_) {
+      if (!arguments.length) return showEdges;
+      showEdges = _;
+      render();
     };
 
     cg.on = function () {
