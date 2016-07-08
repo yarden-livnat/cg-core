@@ -42,6 +42,7 @@ export default function() {
       .attr('class', 'tag')
       .attr('dy', '.35em')
       .attr('text-anchor', 'start')
+      .attr('fill', d => d.color || 'black')
       .text(label);
 
     tag.each(function(d) { d.bbox = d3.select(this).node().getBBox();});

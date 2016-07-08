@@ -90,7 +90,9 @@ $__System.register('5', ['3', '4'], function (_export, _context) {
 
       frame.append('rect').classed('bg', true);
 
-      var text = tag.append('text').attr('class', 'tag').attr('dy', '.35em').attr('text-anchor', 'start').text(label);
+      var text = tag.append('text').attr('class', 'tag').attr('dy', '.35em').attr('text-anchor', 'start').attr('fill', function (d) {
+        return d.color || 'black';
+      }).text(label);
 
       tag.each(function (d) {
         d.bbox = d3.select(this).node().getBBox();
