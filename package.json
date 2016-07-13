@@ -1,14 +1,14 @@
 {
-  "name": "cg",
+  "name": "cg-core",
   "version": "0.6.0",
   "description": "",
-  "main": "build/cg.js",
+  "main": "build/cg-core.js",
   "jsnext:main": "index",
   "private": true,
   "jspmPackage": true,
   "jspm": {
-    "name": "cg",
-    "main": "build/cg.js",
+    "name": "cg-core",
+    "main": "build/cg-core.js",
     "dependencies": {
       "css": "github:systemjs/plugin-css@^0.1.22",
       "d3": "npm:d3@^4.0.0"
@@ -39,8 +39,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "jspm build cg - d3 - css build/cg.js --format umd  --skip-rollup --dev",
-    "dist": "jspm build cg - d3 - css build/cg.js --format umd ",
+    "build": "jspm build cg-core - d3 - css build/cg.js --format umd  --skip-rollup --dev",
+    "dist": "jspm build cg-core - d3 - css build/cg.js --format umd ",
     "d3": "rm -rf build && mkdir build && json2module package.json > build/package.js && rollup -f umd -n cg -o build/cg.js -- index.js"
   },
   "author": "Yarden Livnat",

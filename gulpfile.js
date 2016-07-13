@@ -24,7 +24,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('build', function(cb) {
-  exec('jspm build cg - d3 - css build/cg.js --format umd  --skip-rollup --dev', function(err) {
+  exec('jspm build cg - d3 - css build/cg-core.js --format umd  --skip-rollup --dev', function(err) {
     console.log('jspm build ', err || '');
     if (err) return cb(err);
     cb();
@@ -32,7 +32,7 @@ gulp.task('build', function(cb) {
 });
 
 gulp.task('dist', function(cb) {
-  exec('jspm build cg - d3 - css build/cg.js --format umd', function(err) {
+  exec('jspm build cg - d3 - css build/cg-core.js --format umd', function(err) {
     console.log('jspm build ', err || '');
     if (err) return cb(err);
     cb();
