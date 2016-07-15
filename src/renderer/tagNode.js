@@ -48,7 +48,7 @@ export default function() {
     tag.each(function(d) { d.bbox = d3.select(this).node().getBBox();});
 
     text.attr('transform', function (d) { return `scale(${scale(d.scale)})`; });
-    selection.transition().style('opacity', 1);
+    // selection.transition().style('opacity', 1);
   }
 
   render.create = function() {

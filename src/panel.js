@@ -205,7 +205,9 @@ export default function() {
 
   function updatePositions(nodes) {
     // console.log('updatePositions');
-    nodes = nodes || d3nodes;
+    nodes = nodes || svgNodes.selectAll('.node')
+        .data(graph.nodes, function(d) { return d.id;});
+
     let transform = d3.zoomTransform(overlay.node());
     nodes
       .each(function (d) { [d.zx, d.zy] = transform.apply([d.x, d.y]); })
@@ -274,16 +276,18 @@ export default function() {
       .data(graph.nodes, function(d) { return d.id;});
 
     selection.exit()
-      // .transition(nodeTransition).style('opacity', 0)
+      .transition(nodeTransition).style('opacity', 0)
       .remove();
 
     d3nodes = selection.enter().append(visNode.create)
-      // .style('opacity', 0)
       .call(visNode)
       .call(behavior)
-      .merge(selection)
+      .style('opacity', 0)
+      .merge(selection);
+
+    d3nodes
         .call(visNode.update)
-        // .transition(nodeTransition).style('opacity', 1)
+        .transition(nodeTransition).style('opacity', 1)
     ;
 
 
