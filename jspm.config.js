@@ -50,7 +50,7 @@ SystemJS.config({
   packages: {
     "github:jspm/nodelibs-buffer@0.2.0-alpha": {
       "map": {
-        "buffer-browserify": "npm:buffer@4.7.0"
+        "buffer-browserify": "npm:buffer@4.7.1"
       }
     },
     "github:jspm/nodelibs-url@0.2.0-alpha": {
@@ -137,13 +137,6 @@ SystemJS.config({
         "d3-path": "npm:d3-path@1.0.0"
       }
     },
-    "npm:buffer@4.7.0": {
-      "map": {
-        "ieee754": "npm:ieee754@1.1.6",
-        "isarray": "npm:isarray@1.0.0",
-        "base64-js": "npm:base64-js@1.1.2"
-      }
-    },
     "npm:d3-chord@1.0.0": {
       "map": {
         "d3-array": "npm:d3-array@1.0.0",
@@ -220,6 +213,13 @@ SystemJS.config({
         "d3-selection": "npm:d3-selection@1.0.0",
         "d3-transition": "npm:d3-transition@1.0.0",
         "d3-dispatch": "npm:d3-dispatch@1.0.0"
+      }
+    },
+    "npm:buffer@4.7.1": {
+      "map": {
+        "base64-js": "npm:base64-js@1.1.2",
+        "ieee754": "npm:ieee754@1.1.6",
+        "isarray": "npm:isarray@1.0.0"
       }
     }
   }
