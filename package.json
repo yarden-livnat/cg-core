@@ -1,8 +1,8 @@
 {
   "name": "cg-core",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "",
-  "main": "src/cg-core.js",
+  "main": "build/cg-core.js",
   "jsnext:main": "index",
   "private": true,
   "jspmPackage": true,
