@@ -1223,15 +1223,15 @@ $__System.register('1', ['3', '4'], function (_export, _context) {
 });
 $__System.register("2", [], function() { return { setters: [], execute: function() {} } });
 
-$__System.register('styles/cg.css!github:systemjs/plugin-css@0.1.23/css.js', [], false, function() {});
+$__System.register('styles/cg-core.css!github:systemjs/plugin-css@0.1.23/css.js', [], false, function() {});
 (function(c){if (typeof document == 'undefined') return; var d=document,a='appendChild',i='styleSheet',s=d.createElement('style');s.type='text/css';d.getElementsByTagName('head')[0][a](s);s[i]?s[i].cssText=c:s[a](d.createTextNode(c));})
 (".tagNode .anchor{fill:#d3d3d3;stroke:green;stroke-width:.5px}.tagNode .anchor.fixed{fill:red}.tagNode .tag .frame{fill:#707070}.tagNode .tag .bg{fill:#f0f0f0}.tagNode .tag text{font-size:1.5em;font-weight:400;stroke:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.tagNode .tag text.excluded{text-decoration:line-through}.tagNode .tag.highlighted .bg{fill:#ff0}.cg .overlay{fill:none;pointer-events:all}.cg .link{fill:none;stroke:#ddd;stroke-width:.5px;opacity:1}.cg .link.highlight{stroke:red;stroke-opacity:1}");
 })
 (function(factory) {
   if (typeof define == 'function' && define.amd)
-    define(["d3/build/d3.node.js","styles/cg.css!css/css.js"], factory);
+    define(["d3/build/d3.node.js","styles/cg-core.css!css/css.js"], factory);
   else if (typeof module == 'object' && module.exports && typeof require == 'function')
-    module.exports = factory(require("d3/build/d3.node.js"), require("styles/cg.css!css/css.js"));
+    module.exports = factory(require("d3/build/d3.node.js"), require("styles/cg-core.css!css/css.js"));
   else
     throw new Error("Module must be loaded as AMD or CommonJS");
 });
