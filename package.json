@@ -1,14 +1,14 @@
 {
   "name": "cg-core",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "",
-  "main": "build/cg-core.js",
+  "main": "src/cg-core.js",
   "jsnext:main": "index",
   "private": true,
   "jspmPackage": true,
   "jspm": {
     "name": "cg-core",
-    "main": "build/cg-core.js",
+    "main": "src/cg-core.js",
     "dependencies": {
       "css": "github:systemjs/plugin-css@^0.1.22",
       "d3": "npm:d3@^4.0.0"
