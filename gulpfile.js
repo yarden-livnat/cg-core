@@ -9,7 +9,7 @@ var exec = require('child_process').exec;
 // Compile and automatically prefix stylesheets
 gulp.task('sass', function () {
   return gulp.src([
-    'styles/**/*.scss', '!./styles/**/_*.scss'
+    'styles/**/*.scss', '!styles/**/_*.scss'
   ])
     .pipe($.newer('.tmp/styles'))
     .pipe($.sourcemaps.init())
@@ -20,11 +20,11 @@ gulp.task('sass', function () {
     .pipe($.if('*.css', $.cssnano()))
     .pipe($.size({title: 'styles'}))
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest('styles'));
+    .pipe(gulp.dest('src'));
 });
 
 gulp.task('build', function(cb) {
-  exec('jspm build cg - d3 - css build/cg-core.js --format umd  --skip-rollup --dev', function(err) {
+  exec('jspm build cg-core - d3 - css build/cg-core.js --format umd  --skip-rollup --dev', function(err) {
     console.log('jspm build ', err || '');
     if (err) return cb(err);
     cb();
@@ -32,7 +32,7 @@ gulp.task('build', function(cb) {
 });
 
 gulp.task('dist', function(cb) {
-  exec('jspm build cg - d3 build/cg-core.js --format umd', function(err) {
+  exec('jspm build cg-core - d3 build/cg-core.js --format umd', function(err) {
     console.log('jspm build ', err || '');
     if (err) return cb(err);
     cb();

@@ -1,6 +1,6 @@
 {
   "name": "cg-core",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "",
   "main": "build/cg-core.js",
   "jsnext:main": "index",
@@ -8,7 +8,7 @@
   "jspmPackage": true,
   "jspm": {
     "name": "cg-core",
-    "main": "src/cg-core.js",
+    "main": "build/cg-core.js",
     "dependencies": {
       "css": "github:systemjs/plugin-css@^0.1.22",
       "d3": "npm:d3@^4.0.0"
@@ -39,9 +39,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "jspm build cg-core - d3 - css build/cg.js --format umd  --skip-rollup --dev",
-    "dist": "jspm build cg-core - d3 - css build/cg.js --format umd ",
-    "d3": "rm -rf build && mkdir build && json2module package.json > build/package.js && rollup -f umd -n cg -o build/cg.js -- index.js"
+    "build": "jspm build cg-core - d3 - css build/cg-core.js --format umd  --skip-rollup --dev",
+    "dist": "jspm build cg-core - d3 - css build/cg-core.js --format umd ",
+    "d3": "rm -rf build && mkdir build && json2module package.json > build/package.js && rollup -f umd -n cg-core -o build/cg-core.js -- index.js"
   },
   "author": "Yarden Livnat",
   "license": "MIT",

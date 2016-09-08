@@ -9,7 +9,7 @@ import Link from './renderer/lineLink';
 // import Link from './renderer/gradientLink';
 import tagNode from './renderer/tagNode';
 import collide from './forceRectCollide'; 
-import 'styles/cg-core.css!';
+import '../styles/cg-core.css!';
 
 export default function() {
   var width = 400, height = 400;

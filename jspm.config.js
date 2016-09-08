@@ -2,7 +2,7 @@ SystemJS.config({
   paths: {
     "npm:": "jspm_packages/npm/",
     "github:": "jspm_packages/github/",
-    "cg/": "src/"
+    "cg-core/": "src/"
   },
   browserConfig: {
     "baseURL": "/"
@@ -14,12 +14,15 @@ SystemJS.config({
   },
   transpiler: "plugin-babel",
   packages: {
-    "cg": {
+    "cg-core": {
       "main": "../index.js",
       "format": "esm",
       "meta": {
         "*.js": {
           "loader": "plugin-babel"
+        },
+        '*.css': {
+          loader: 'css'
         }
       }
     }
