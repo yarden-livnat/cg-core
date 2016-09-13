@@ -265,6 +265,8 @@ export default function() {
 
 
   function render() {
+    if (!svg) return;
+
     let nodeTransition = d3.transition().ease(d3.easeLinear).duration(300);
     let edgeTransition = d3.transition().ease(d3.easeLinear).duration(300);
 
