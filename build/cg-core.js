@@ -710,6 +710,8 @@
     }
 
     function render() {
+      if (!svg) return;
+
       var nodeTransition = d3.transition().ease(d3.easeLinear).duration(300);
       var edgeTransition = d3.transition().ease(d3.easeLinear).duration(300);
 
