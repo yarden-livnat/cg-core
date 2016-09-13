@@ -382,6 +382,7 @@ export default function() {
     d3links.call(visLink.update);
     forceCollide.initialize(graph.nodes); // use new nodes sizes
     // simulation.alpha(0.1).restart();
+    return cg;
   };
 
   cg.resize = resize;
@@ -390,13 +391,14 @@ export default function() {
     // for (let node of graph.nodes)
     //   if (!node.fixed) simulation.unfix(node);
     simulation.alpha(0.5).restart();
-
+    return cg;
   };
 
   cg.showEdges = function(_) {
     if (!arguments.length) return showEdges;
     showEdges = _;
     render();
+    return cg;
   };
 
   cg.on = function() {
