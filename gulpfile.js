@@ -32,7 +32,7 @@ gulp.task('build', function(cb) {
 });
 
 gulp.task('dist', function(cb) {
-  exec('jspm build cg-core - d3 - css build/cg-core.js --format umd', function(err) {
+  exec('jspm build cg-core - d3  build/cg-core.js --format umd', function(err) {
     console.log('jspm build ', err || '');
     if (err) return cb(err);
     cb();

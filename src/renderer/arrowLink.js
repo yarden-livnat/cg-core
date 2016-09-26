@@ -14,10 +14,10 @@ export default function () {
 
   let widthScale = d3.scaleQuantize()
         .domain([0, 1])
-        .range([0.5, 0.75, 1, 1.25]),
+        .range([0.5, 0.75, 1, 1.25, 1.5]),
       opacityScale = d3.scaleLinear()
-        .domain([0.4,1])
-        .range([0.4, 0.5]);
+        .domain([0.2,1])
+        .range([0.2, 0.6]);
 
   function Link(selection) {
     selection
