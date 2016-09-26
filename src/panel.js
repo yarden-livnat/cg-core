@@ -9,7 +9,7 @@ import Link from './renderer/lineLink';
 // import Link from './renderer/gradientLink';
 import tagNode from './renderer/tagNode';
 import collide from './forceRectCollide'; 
-import '../styles/cg-core.css!';
+// import '../styles/cg-core.css!';
 
 export default function() {
   var width = 400, height = 400;
@@ -265,6 +265,8 @@ export default function() {
 
 
   function render() {
+    if (!svg) return;
+
     let nodeTransition = d3.transition().ease(d3.easeLinear).duration(300);
     let edgeTransition = d3.transition().ease(d3.easeLinear).duration(300);
 
@@ -382,6 +384,7 @@ export default function() {
     d3links.call(visLink.update);
     forceCollide.initialize(graph.nodes); // use new nodes sizes
     // simulation.alpha(0.1).restart();
+    return cg;
   };
 
   cg.resize = resize;
@@ -390,13 +393,14 @@ export default function() {
     // for (let node of graph.nodes)
     //   if (!node.fixed) simulation.unfix(node);
     simulation.alpha(0.5).restart();
-
+    return cg;
   };
 
   cg.showEdges = function(_) {
     if (!arguments.length) return showEdges;
     showEdges = _;
     render();
+    return cg;
   };
 
   cg.on = function() {

@@ -1,27 +1,55 @@
-!function(e){function r(e,r,o){return 4===arguments.length?t.apply(this,arguments):void n(e,{declarative:!0,deps:r,declare:o})}function t(e,r,t,o){n(e,{declarative:!1,deps:r,executingRequire:t,execute:o})}function n(e,r){r.name=e,e in v||(v[e]=r),r.normalizedDeps=r.deps}function o(e,r){if(r[e.groupIndex]=r[e.groupIndex]||[],-1==g.call(r[e.groupIndex],e)){r[e.groupIndex].push(e);for(var t=0,n=e.normalizedDeps.length;n>t;t++){var a=e.normalizedDeps[t],u=v[a];if(u&&!u.evaluated){var d=e.groupIndex+(u.declarative!=e.declarative);if(void 0===u.groupIndex||u.groupIndex<d){if(void 0!==u.groupIndex&&(r[u.groupIndex].splice(g.call(r[u.groupIndex],u),1),0==r[u.groupIndex].length))throw new TypeError("Mixed dependency cycle detected");u.groupIndex=d}o(u,r)}}}}function a(e){var r=v[e];r.groupIndex=0;var t=[];o(r,t);for(var n=!!r.declarative==t.length%2,a=t.length-1;a>=0;a--){for(var u=t[a],i=0;i<u.length;i++){var s=u[i];n?d(s):l(s)}n=!n}}function u(e){return y[e]||(y[e]={name:e,dependencies:[],exports:{},importers:[]})}function d(r){if(!r.module){var t=r.module=u(r.name),n=r.module.exports,o=r.declare.call(e,function(e,r){if(t.locked=!0,"object"==typeof e)for(var o in e)n[o]=e[o];else n[e]=r;for(var a=0,u=t.importers.length;u>a;a++){var d=t.importers[a];if(!d.locked)for(var i=0;i<d.dependencies.length;++i)d.dependencies[i]===t&&d.setters[i](n)}return t.locked=!1,r},r.name);t.setters=o.setters,t.execute=o.execute;for(var a=0,i=r.normalizedDeps.length;i>a;a++){var l,s=r.normalizedDeps[a],c=v[s],f=y[s];f?l=f.exports:c&&!c.declarative?l=c.esModule:c?(d(c),f=c.module,l=f.exports):l=p(s),f&&f.importers?(f.importers.push(t),t.dependencies.push(f)):t.dependencies.push(null),t.setters[a]&&t.setters[a](l)}}}function i(e){var r,t=v[e];if(t)t.declarative?f(e,[]):t.evaluated||l(t),r=t.module.exports;else if(r=p(e),!r)throw new Error("Unable to load dependency "+e+".");return(!t||t.declarative)&&r&&r.__useDefault?r["default"]:r}function l(r){if(!r.module){var t={},n=r.module={exports:t,id:r.name};if(!r.executingRequire)for(var o=0,a=r.normalizedDeps.length;a>o;o++){var u=r.normalizedDeps[o],d=v[u];d&&l(d)}r.evaluated=!0;var c=r.execute.call(e,function(e){for(var t=0,n=r.deps.length;n>t;t++)if(r.deps[t]==e)return i(r.normalizedDeps[t]);throw new TypeError("Module "+e+" not declared as a dependency.")},t,n);c&&(n.exports=c),t=n.exports,t&&t.__esModule?r.esModule=t:r.esModule=s(t)}}function s(r){var t={};if(("object"==typeof r||"function"==typeof r)&&r!==e)if(m)for(var n in r)"default"!==n&&c(t,r,n);else{var o=r&&r.hasOwnProperty;for(var n in r)"default"===n||o&&!r.hasOwnProperty(n)||(t[n]=r[n])}return t["default"]=r,x(t,"__useDefault",{value:!0}),t}function c(e,r,t){try{var n;(n=Object.getOwnPropertyDescriptor(r,t))&&x(e,t,n)}catch(o){return e[t]=r[t],!1}}function f(r,t){var n=v[r];if(n&&!n.evaluated&&n.declarative){t.push(r);for(var o=0,a=n.normalizedDeps.length;a>o;o++){var u=n.normalizedDeps[o];-1==g.call(t,u)&&(v[u]?f(u,t):p(u))}n.evaluated||(n.evaluated=!0,n.module.execute.call(e))}}function p(e){if(I[e])return I[e];if("@node/"==e.substr(0,6))return D(e.substr(6));var r=v[e];if(!r)throw"Module "+e+" not present.";return a(e),f(e,[]),v[e]=void 0,r.declarative&&x(r.module.exports,"__esModule",{value:!0}),I[e]=r.declarative?r.module.exports:r.esModule}var v={},g=Array.prototype.indexOf||function(e){for(var r=0,t=this.length;t>r;r++)if(this[r]===e)return r;return-1},m=!0;try{Object.getOwnPropertyDescriptor({a:0},"a")}catch(h){m=!1}var x;!function(){try{Object.defineProperty({},"a",{})&&(x=Object.defineProperty)}catch(e){x=function(e,r,t){try{e[r]=t.value||t.get.call(e)}catch(n){}}}}();var y={},D="undefined"!=typeof System&&System._nodeRequire||"undefined"!=typeof require&&require.resolve&&"undefined"!=typeof process&&require,I={"@empty":{}};return function(e,n,o,a){return function(u){u(function(u){for(var d={_nodeRequire:D,register:r,registerDynamic:t,get:p,set:function(e,r){I[e]=r},newModule:function(e){return e}},i=0;i<n.length;i++)(function(e,r){r&&r.__esModule?I[e]=r:I[e]=s(r)})(n[i],arguments[i]);a(d);var l=p(e[0]);if(e.length>1)for(var i=1;i<e.length;i++)p(e[i]);return o?l["default"]:l})}}}("undefined"!=typeof self?self:global)
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3/build/d3.node.js')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'd3/build/d3.node.js'], factory) :
+  (factory((global.cgCore = global.cgCore || {}),global.d3));
+}(this, function (exports,d3) { 'use strict';
 
-(["1"], ["3"], false, function($__System) {
-var require = this.require, exports = this.exports, module = this.module;
-!function(e){function r(e,r){for(var n=e.split(".");n.length;)r=r[n.shift()];return r}function n(n){if("string"==typeof n)return r(n,e);if(!(n instanceof Array))throw new Error("Global exports must be a string or array.");for(var t={},o=!0,f=0;f<n.length;f++){var i=r(n[f],e);o&&(t["default"]=i,o=!1),t[n[f].split(".").pop()]=i}return t}function t(r){if(Object.keys)Object.keys(e).forEach(r);else for(var n in e)a.call(e,n)&&r(n)}function o(r){t(function(n){if(-1==l.call(s,n)){try{var t=e[n]}catch(o){s.push(n)}r(n,t)}})}var f,i=$__System,a=Object.prototype.hasOwnProperty,l=Array.prototype.indexOf||function(e){for(var r=0,n=this.length;n>r;r++)if(this[r]===e)return r;return-1},s=["_g","sessionStorage","localStorage","clipboardData","frames","frameElement","external","mozAnimationStartTime","webkitStorageInfo","webkitIndexedDB","mozInnerScreenY","mozInnerScreenX"];i.set("@@global-helpers",i.newModule({prepareGlobal:function(r,t,i){var a=e.define;e.define=void 0;var l;if(i){l={};for(var s in i)l[s]=e[s],e[s]=i[s]}return t||(f={},o(function(e,r){f[e]=r})),function(){var r;if(t)r=n(t);else{r={};var i,s;o(function(e,n){f[e]!==n&&"undefined"!=typeof n&&(r[e]=n,"undefined"!=typeof i?s||i===n||(s=!0):i=n)}),r=s?r:i}if(l)for(var u in l)e[u]=l[u];return e.define=a,r}}}))}("undefined"!=typeof self?self:global);
-$__System.registerDynamic("2", [], false, function($__require, $__exports, $__module) {
-  var _retrieveGlobal = $__System.get("@@global-helpers").prepareGlobal($__module.id, null, null);
-  (function() {})();
-  return _retrieveGlobal();
-});
+  var _slicedToArray = (function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];
+      var _n = true;
+      var _d = false;
+      var _e = undefined;
 
-$__System.register('1', ['2', '3'], function (_export, _context) {
-  "use strict";
+      try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);
 
-  var quadtree, d3, _slicedToArray;
+          if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;
+        _e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"]) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }
+
+      return _arr;
+    }
+
+    return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError("Invalid attempt to destructure non-iterable instance");
+      }
+    };
+  })();
 
   /**
    * Created by yarden on 6/1/16.
    */
-  function createElement(name) {
+  function createElement (name) {
     return this.ownerDocument.createElementNS(this.namespaceURI, name);
   }
 
-  function Link() {
+  function Link () {
     var widthScale = d3.scaleQuantize().domain([0, 1]).range([0.5, 0.75, 1, 1.25]),
         opacityScale = d3.scaleLinear().domain([0.4, 1])
     // .range([0.4, 0.8]);
@@ -54,7 +82,7 @@ $__System.register('1', ['2', '3'], function (_export, _context) {
     return Link;
   }
 
-  function tagNode() {
+  function tagNode () {
     var initialized = false,
         radius = 3,
         scale = d3.scaleLinear().domain([0.4, 1]).range([0.6, 1]).clamp(true);
@@ -163,13 +191,13 @@ $__System.register('1', ['2', '3'], function (_export, _context) {
   /**
    * Created by yarden on 5/23/16.
    */
-  function constant(x) {
+  function constant (x) {
     return function () {
       return x;
     };
   }
 
-  function collide(extent) {
+  function collide (extent) {
     var nodes,
         extents,
         strength = 1,
@@ -197,7 +225,7 @@ $__System.register('1', ['2', '3'], function (_export, _context) {
           cyi;
 
       for (var k = 0; k < iterations; ++k) {
-        tree = quadtree(nodes, x, y).visitAfter(prepare);
+        tree = d3.quadtree(nodes, x, y).visitAfter(prepare);
         for (i = 0; i < n; ++i) {
           node = nodes[i];
           wi = extents[i].w;
@@ -296,7 +324,9 @@ $__System.register('1', ['2', '3'], function (_export, _context) {
     return force;
   }
 
-  function panel() {
+  // import '../styles/cg-core.css!';
+
+  function panel () {
     var width = 400,
         height = 400;
     var graph = { nodes: [], links: {} },
@@ -455,6 +485,7 @@ $__System.register('1', ['2', '3'], function (_export, _context) {
       var _ref = [d.x, d.y];
       d.fx = _ref[0];
       d.fy = _ref[1];
+
 
       updatePositions(d3.select(this));
 
@@ -679,6 +710,8 @@ $__System.register('1', ['2', '3'], function (_export, _context) {
     }
 
     function render() {
+      if (!svg) return;
+
       var nodeTransition = d3.transition().ease(d3.easeLinear).duration(300);
       var edgeTransition = d3.transition().ease(d3.easeLinear).duration(300);
 
@@ -787,6 +820,7 @@ $__System.register('1', ['2', '3'], function (_export, _context) {
       d3links.call(visLink.update);
       forceCollide.initialize(graph.nodes); // use new nodes sizes
       // simulation.alpha(0.1).restart();
+      return cg;
     };
 
     cg.resize = resize;
@@ -795,12 +829,14 @@ $__System.register('1', ['2', '3'], function (_export, _context) {
       // for (let node of graph.nodes)
       //   if (!node.fixed) simulation.unfix(node);
       simulation.alpha(0.5).restart();
+      return cg;
     };
 
     cg.showEdges = function (_) {
       if (!arguments.length) return showEdges;
       showEdges = _;
       render();
+      return cg;
     };
 
     cg.on = function () {
@@ -819,8 +855,7 @@ $__System.register('1', ['2', '3'], function (_export, _context) {
     var count = 0,
         ia = 0,
         ib = 0,
-
-    // indices
+        // indices
     na = a.length,
         nb = b.length,
         va = void 0,
@@ -1166,77 +1201,16 @@ $__System.register('1', ['2', '3'], function (_export, _context) {
     return filter;
   }
 
-  return {
-    setters: [function (_2) {}, function (_3) {
-      quadtree = _3.quadtree;
-      d3 = _3;
-    }],
-    execute: function () {
-      _slicedToArray = function () {
-        function sliceIterator(arr, i) {
-          var _arr = [];
-          var _n = true;
-          var _d = false;
-          var _e = undefined;
+  exports.panel = panel;
+  exports.suggest = suggest;
+  exports.jaccard = jaccard;
+  exports.and = and;
+  exports.or = or;
+  exports.not = not;
+  exports.groupAnd = groupAnd;
+  exports.groupOr = groupOr;
 
-          try {
-            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-              _arr.push(_s.value);
+  Object.defineProperty(exports, '__esModule', { value: true });
 
-              if (i && _arr.length === i) break;
-            }
-          } catch (err) {
-            _d = true;
-            _e = err;
-          } finally {
-            try {
-              if (!_n && _i["return"]) _i["return"]();
-            } finally {
-              if (_d) throw _e;
-            }
-          }
-
-          return _arr;
-        }
-
-        return function (arr, i) {
-          if (Array.isArray(arr)) {
-            return arr;
-          } else if (Symbol.iterator in Object(arr)) {
-            return sliceIterator(arr, i);
-          } else {
-            throw new TypeError("Invalid attempt to destructure non-iterable instance");
-          }
-        };
-      }();
-
-      _export('panel', panel);
-
-      _export('suggest', suggest);
-
-      _export('jaccard', jaccard);
-
-      _export('and', and);
-
-      _export('or', or);
-
-      _export('not', not);
-
-      _export('groupAnd', groupAnd);
-
-      _export('groupOr', groupOr);
-    }
-  };
-});
-(function(c){if (typeof document == 'undefined') return; var d=document,a='appendChild',i='styleSheet',s=d.createElement('style');s.type='text/css';d.getElementsByTagName('head')[0][a](s);s[i]?s[i].cssText=c:s[a](d.createTextNode(c));})
-(".tagNode .anchor{fill:#d3d3d3;stroke:green;stroke-width:.5px}.tagNode .anchor.fixed{fill:red}.tagNode .tag .frame{fill:#707070}.tagNode .tag .bg{fill:#f0f0f0}.tagNode .tag text{font-size:1.5em;font-weight:400;stroke:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.tagNode .tag text.excluded{text-decoration:line-through}.tagNode .tag.highlighted .bg{fill:#ff0}.cg .overlay{fill:none;pointer-events:all}.cg .link{fill:none;stroke:#ddd;stroke-width:.5px;opacity:1}.cg .link.highlight{stroke:red;stroke-opacity:1}");
-})
-(function(factory) {
-  if (typeof define == 'function' && define.amd)
-    define(["d3/build/d3.node.js"], factory);
-  else if (typeof module == 'object' && module.exports && typeof require == 'function')
-    module.exports = factory(require("d3/build/d3.node.js"));
-  else
-    throw new Error("Module must be loaded as AMD or CommonJS");
-});
+}));
 //# sourceMappingURL=cg-core.js.map
