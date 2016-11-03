@@ -110,22 +110,12 @@ SystemJS.config({
         "d3-drag": "npm:d3-drag@1.0.1",
         "d3-interpolate": "npm:d3-interpolate@1.1.1",
         "d3-selection": "npm:d3-selection@1.0.2",
-        "d3-transition": "npm:d3-transition@1.0.2"
-      }
-    },
-    "npm:d3-transition@1.0.2": {
-      "map": {
-        "d3-color": "npm:d3-color@1.0.1",
-        "d3-dispatch": "npm:d3-dispatch@1.0.1",
-        "d3-ease": "npm:d3-ease@1.0.1",
-        "d3-interpolate": "npm:d3-interpolate@1.1.1",
-        "d3-selection": "npm:d3-selection@1.0.2",
-        "d3-timer": "npm:d3-timer@1.0.3"
+        "d3-transition": "npm:d3-transition@1.0.3"
       }
     },
     "npm:buffer@4.9.1": {
       "map": {
-        "ieee754": "npm:ieee754@1.1.6",
+        "ieee754": "npm:ieee754@1.1.8",
         "isarray": "npm:isarray@1.0.0",
         "base64-js": "npm:base64-js@1.2.0"
       }
@@ -152,7 +142,7 @@ SystemJS.config({
         "diffie-hellman": "npm:diffie-hellman@5.0.2",
         "randombytes": "npm:randombytes@2.0.3",
         "public-encrypt": "npm:public-encrypt@4.0.0",
-        "pbkdf2": "npm:pbkdf2@3.0.8"
+        "pbkdf2": "npm:pbkdf2@3.0.9"
       }
     },
     "npm:create-hash@1.1.2": {
@@ -258,7 +248,7 @@ SystemJS.config({
         "browserify-aes": "npm:browserify-aes@1.0.6",
         "create-hash": "npm:create-hash@1.1.2",
         "evp_bytestokey": "npm:evp_bytestokey@1.0.0",
-        "pbkdf2": "npm:pbkdf2@3.0.8",
+        "pbkdf2": "npm:pbkdf2@3.0.9",
         "asn1.js": "npm:asn1.js@4.8.1"
       }
     },
@@ -279,7 +269,7 @@ SystemJS.config({
         "d3-drag": "npm:d3-drag@1.0.1",
         "d3-interpolate": "npm:d3-interpolate@1.1.1",
         "d3-selection": "npm:d3-selection@1.0.2",
-        "d3-transition": "npm:d3-transition@1.0.2"
+        "d3-transition": "npm:d3-transition@1.0.3"
       }
     },
     "npm:d3-shape@1.0.3": {
@@ -294,23 +284,9 @@ SystemJS.config({
         "rw": "npm:rw@1.3.2"
       }
     },
-    "npm:stream-http@2.4.0": {
-      "map": {
-        "readable-stream": "npm:readable-stream@2.1.5",
-        "to-arraybuffer": "npm:to-arraybuffer@1.0.1",
-        "builtin-status-codes": "npm:builtin-status-codes@2.0.0",
-        "inherits": "npm:inherits@2.0.3",
-        "xtend": "npm:xtend@4.0.1"
-      }
-    },
     "npm:commander@2.9.0": {
       "map": {
         "graceful-readlink": "npm:graceful-readlink@1.0.1"
-      }
-    },
-    "npm:pbkdf2@3.0.8": {
-      "map": {
-        "create-hmac": "npm:create-hmac@1.1.4"
       }
     },
     "npm:elliptic@6.3.2": {
@@ -350,7 +326,7 @@ SystemJS.config({
     },
     "npm:jspm-nodelibs-http@0.2.0": {
       "map": {
-        "http-browserify": "npm:stream-http@2.4.0"
+        "http-browserify": "npm:stream-http@2.4.1"
       }
     },
     "npm:jspm-nodelibs-buffer@0.2.0": {
@@ -423,6 +399,20 @@ SystemJS.config({
         "d3-dispatch": "npm:d3-dispatch@1.0.1",
         "d3-quadtree": "npm:d3-quadtree@1.0.1",
         "d3-timer": "npm:d3-timer@1.0.3"
+      }
+    },
+    "npm:stream-http@2.4.1": {
+      "map": {
+        "inherits": "npm:inherits@2.0.3",
+        "readable-stream": "npm:readable-stream@2.1.5",
+        "builtin-status-codes": "npm:builtin-status-codes@2.0.0",
+        "xtend": "npm:xtend@4.0.1",
+        "to-arraybuffer": "npm:to-arraybuffer@1.0.1"
+      }
+    },
+    "npm:pbkdf2@3.0.9": {
+      "map": {
+        "create-hmac": "npm:create-hmac@1.1.4"
       }
     }
   }

@@ -1,6 +1,6 @@
 {
   "name": "cg-core",
-  "version": "0.6.5.6",
+  "version": "0.6.5.7",
   "description": "",
   "main": "build/cg-core.js",
   "jsnext:main": "index",
@@ -62,5 +62,8 @@
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "jspm": "^0.17.0-beta.21"
+  },
+  "dependencies": {
+    "jspm": "^0.17.0-beta.31"
   }
 }
