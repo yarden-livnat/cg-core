@@ -15,6 +15,7 @@ export default function() {
   var width = 400, height = 400;
   var graph = {nodes: [], links: {}},
     version = 0;
+  var charge = -30, charge_dist = 100;
 
   let svg, svgNodes, svgLinks, overlay,
     d3nodes, d3links,
@@ -30,7 +31,7 @@ export default function() {
    * Simulation
    */
 
-  let forceCharge = d3.forceManyBody().strength(-150);
+  let forceCharge = d3.forceManyBody().strength(function() {return charge;}).distanceMax(charge_dist);
 
   let forceLink = d3.forceLink()
     .id(function(d) { return d.id; })
@@ -49,9 +50,9 @@ export default function() {
     .force('charge', forceCharge)
     .force('link', forceLink)
     .force('collide', forceCollide)
-    // .force('center', d3.forceCenter(width/2, height/2))
-    // .force('x', d3.forceX(width/2))
-    // .force('y', d3.forceY(height/2))
+    // .force('center', d3.forceCenter().x(width/2).y(height/2))
+    // .force('x', d3.forceX(width/2).strength(0.01))
+    // .force('y', d3.forceY(height/2).strength(0.01))
     .on('tick', ticked)
     // .on('end', () => console.log('simulation ended'))
     .stop();
@@ -177,8 +178,6 @@ export default function() {
       });
 
     selection.call(drag);
-
-    // selection.on('mousewheel', function() { console.log('tag mouse wheel')});
   }
 
   function nodeDown(d) {
@@ -205,12 +204,14 @@ export default function() {
 
   function updatePositions(nodes) {
     // console.log('updatePositions');
+    if (!graph.nodes || graph.nodes.length == 0) return;
+
     nodes = nodes || svgNodes.selectAll('.node')
         .data(graph.nodes, function(d) { return d.id;});
 
     let transform = d3.zoomTransform(overlay.node());
     nodes
-      .each(function (d) { [d.zx, d.zy] = transform.apply([d.x, d.y]); })
+      .each(function (d) { [d.zx, d.zy] = transform.apply([d.x, d.y]); /*console.log([d.x, d.y]);*/})
       .attr('transform', function (d) { return 'translate(' + d.zx + ',' + d.zy + ')'; });
 
     d3links.call(visLink.update);
@@ -406,6 +407,22 @@ export default function() {
   cg.on = function() {
     var value = listeners.on.apply(listeners, arguments);
     return value === listeners ? cg : value;
+  };
+
+  cg.charge = function(_) {
+    if (!arguments.length) return charge;
+    charge = _;
+    console.log('set charge ', _);
+    simulation.alpha(0.5).restart();
+    return cg;
+  };
+
+  cg.charge_dist = function(_) {
+    if (!arguments.length) return charge_dist;
+    charge_dist = _;
+    forceCharge.distanceMax(_);
+    simulation.alpha(0.5).restart();
+    return cg;
   };
 
   return cg;

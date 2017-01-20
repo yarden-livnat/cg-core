@@ -349,6 +349,8 @@ var panel = function () {
       height = 400;
   var graph = { nodes: [], links: {} },
       version = 0;
+  var charge = -30,
+      charge_dist = 100;
 
   var svg = void 0,
       svgNodes = void 0,
@@ -369,7 +371,9 @@ var panel = function () {
    * Simulation
    */
 
-  var forceCharge = d3.forceManyBody().strength(-150);
+  var forceCharge = d3.forceManyBody().strength(function () {
+    return charge;
+  }).distanceMax(charge_dist);
 
   var forceLink$$1 = d3.forceLink().id(function (d) {
     return d.id;
@@ -386,9 +390,9 @@ var panel = function () {
   }).iterations(10).strength(0.05);
 
   var simulation = d3.forceSimulation().force('charge', forceCharge).force('link', forceLink$$1).force('collide', forceCollide)
-  // .force('center', d3.forceCenter(width/2, height/2))
-  // .force('x', d3.forceX(width/2))
-  // .force('y', d3.forceY(height/2))
+  // .force('center', d3.forceCenter().x(width/2).y(height/2))
+  // .force('x', d3.forceX(width/2).strength(0.01))
+  // .force('y', d3.forceY(height/2).strength(0.01))
   .on('tick', ticked)
   // .on('end', () => console.log('simulation ended'))
   .stop();
@@ -609,8 +613,6 @@ var panel = function () {
     });
 
     selection.call(drag$$1);
-
-    // selection.on('mousewheel', function() { console.log('tag mouse wheel')});
   }
 
   function nodeDown(d) {
@@ -636,12 +638,15 @@ var panel = function () {
 
   function updatePositions(nodes) {
     // console.log('updatePositions');
+    if (!graph.nodes || graph.nodes.length == 0) return;
+
     nodes = nodes || svgNodes.selectAll('.node').data(graph.nodes, function (d) {
       return d.id;
     });
 
     var transform = d3.zoomTransform(overlay.node());
     nodes.each(function (d) {
+      /*console.log([d.x, d.y]);*/
       var _transform$apply = transform.apply([d.x, d.y]);
 
       var _transform$apply2 = _slicedToArray(_transform$apply, 2);
@@ -859,6 +864,22 @@ var panel = function () {
   cg.on = function () {
     var value = listeners.on.apply(listeners, arguments);
     return value === listeners ? cg : value;
+  };
+
+  cg.charge = function (_) {
+    if (!arguments.length) return charge;
+    charge = _;
+    console.log('set charge ', _);
+    simulation.alpha(0.5).restart();
+    return cg;
+  };
+
+  cg.charge_dist = function (_) {
+    if (!arguments.length) return charge_dist;
+    charge_dist = _;
+    forceCharge.distanceMax(_);
+    simulation.alpha(0.5).restart();
+    return cg;
   };
 
   return cg;
