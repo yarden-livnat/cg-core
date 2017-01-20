@@ -1,6 +1,6 @@
 {
   "name": "cg-core",
-  "version": "0.6.5.7",
+  "version": "0.6.6",
   "description": "",
   "main": "build/cg-core.js",
   "jsnext:main": "index",
