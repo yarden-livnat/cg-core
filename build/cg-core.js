@@ -624,7 +624,7 @@ var panel = function () {
     enableZoom();
     if (d3.event.timeStamp - clickStartTime < CLICK_MIN_TIME) {
       // simulation.stop();  // TODO: why does this cause the simulation not to start after visNNode.update with transition?
-      if (d3.event.metaKey) listeners.call('exclude', this, d);else listeners.call('select', this, d);
+      if (d3.event.ctrlKey) listeners.call('exclude', this, d);else listeners.call('select', this, d);
     }
   }
 

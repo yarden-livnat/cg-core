@@ -238,7 +238,7 @@ SystemJS.config({
         "d3-ease": "npm:d3-ease@1.0.2",
         "d3-interpolate": "npm:d3-interpolate@1.1.3",
         "d3-selection": "npm:d3-selection@1.0.3",
-        "d3-timer": "npm:d3-timer@1.0.3"
+        "d3-timer": "npm:d3-timer@1.0.4"
       }
     },
     "npm:pbkdf2@3.0.9": {
@@ -267,7 +267,7 @@ SystemJS.config({
       "map": {
         "d3-quadtree": "npm:d3-quadtree@1.0.2",
         "d3-collection": "npm:d3-collection@1.0.2",
-        "d3-timer": "npm:d3-timer@1.0.3",
+        "d3-timer": "npm:d3-timer@1.0.4",
         "d3-dispatch": "npm:d3-dispatch@1.0.2"
       }
     },
