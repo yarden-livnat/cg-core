@@ -20,7 +20,7 @@ gulp.task('sass', function () {
     .pipe($.if('*.css', $.cssnano()))
     .pipe($.size({title: 'styles'}))
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest('src'));
+    .pipe(gulp.dest('styles'));
 });
 
 gulp.task('build', function(cb) {

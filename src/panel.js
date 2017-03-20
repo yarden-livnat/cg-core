@@ -12,14 +12,14 @@ import collide from './forceRectCollide';
 // import '../styles/cg-core.css!';
 
 export default function() {
-  var width = 400, height = 400;
-  var graph = {nodes: [], links: {}},
+  let width = 400, height = 400;
+  let graph = {nodes: [], links: {}},
     version = 0;
-  var charge = -30, charge_dist = 100;
+  let charge = -30, charge_dist = 100;
 
   let svg, svgNodes, svgLinks, overlay,
     d3nodes, d3links,
-    listeners = d3.dispatch('select', 'exclude', 'highlight'),
+    listeners = d3.dispatch('select', 'exclude', 'highlight', 'highlight_link'),
     visNode = tagNode().label(d => d.label),
     visLink = Link(),
     showEdges = false
@@ -180,6 +180,12 @@ export default function() {
     selection.call(drag);
   }
 
+  function linkBehavior(selection) {
+    selection
+      .on('mouseenter', function(d) { highlight_link(this, d, true);})//d => highlight_link(d, true))
+      .on('mouseleave', function(d) { highlight_link(this, d, false);}); //d => highlight_link(d, false));
+  }
+
   function nodeDown(d) {
     clickStartTime = d3.event.timeStamp;
     disableZoom();
@@ -194,10 +200,16 @@ export default function() {
     }
   }
   
-  function highlight(d, state) {
-    listeners.call('highlight', this, d, state);
+  function highlight(node, on) {
+    visLink.highlight(d3links, d => on && (d.source == node || d.target == node));
+    listeners.call('highlight', this, node, on);
   }
 
+  function highlight_link(that, link, on) {
+    visLink.highlight(d3.select(that), d => on);
+    // visNode.highlight(d3nodes, d => state && (d == link.source || d == link.target));
+    listeners.call('highlight_link', this, link, on);
+  }
   /*
    * positions
    */
@@ -304,6 +316,7 @@ export default function() {
     d3links = selection.enter().append(visLink.create)
       // .style('opacity', 0)
       .call(visLink)
+      .call(linkBehavior)
       // .transition(edgeTransition).style('opacity', 0.5)
       // .selection()
       .merge(selection)

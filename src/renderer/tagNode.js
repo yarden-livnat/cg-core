@@ -101,5 +101,11 @@ export default function() {
     return render;
   };
 
+  render.highlight = function(selection, func) {
+    selection.select('.frame')
+      .style('opacity', d => (d.selected || d.excluded || d.highlighted || func(d)) ? 1: 0);
+      // .classed('highlighted', function(d) { return d.highlighted || func(d); });
+  };
+
   return render;
 }
