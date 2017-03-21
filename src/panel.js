@@ -35,7 +35,7 @@ export default function() {
 
   let forceLink = d3.forceLink()
     .id(function(d) { return d.id; })
-    .strength(function(d) {return d.value/50; })
+    .strength(function(d) {return d.value/10; })
     .iterations(5);
   
   let forceCollide = collide()
