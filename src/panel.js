@@ -4,9 +4,9 @@
 
 import * as d3 from 'd3';
 import Link from './renderer/lineLink';
-// import Link from './renderer/directionalLink';
-// import Link from './renderer/arcLink';
-// import Link from './renderer/gradientLink';
+import {Link as arrowLink} from './renderer/arrowLink';
+import {Link as arcLink} from './renderer/arcLink';
+import {Link as gradientLink} from './renderer/gradientLink';
 import tagNode from './renderer/tagNode';
 import collide from './forceRectCollide'; 
 // import '../styles/cg-core.css!';
@@ -15,7 +15,7 @@ export default function() {
   let width = 400, height = 400;
   let graph = {nodes: [], links: {}},
     version = 0;
-  let charge = -30, charge_dist = 100;
+  let charge = -30, charge_dist = 100, linkFactor=50;
 
   let svg, svgNodes, svgLinks, overlay,
     d3nodes, d3links,
@@ -35,7 +35,7 @@ export default function() {
 
   let forceLink = d3.forceLink()
     .id(function(d) { return d.id; })
-    .strength(function(d) {return d.value/10; })
+    .strength(function(d) {return d.value/linkFactor; })
     .iterations(5);
   
   let forceCollide = collide()
@@ -418,7 +418,7 @@ export default function() {
   };
 
   cg.on = function() {
-    var value = listeners.on.apply(listeners, arguments);
+    let value = listeners.on.apply(listeners, arguments);
     return value === listeners ? cg : value;
   };
 
@@ -426,6 +426,7 @@ export default function() {
     if (!arguments.length) return charge;
     charge = _;
     console.log('set charge ', _);
+    forceCharge.strength(() => charge);
     simulation.alpha(0.5).restart();
     return cg;
   };
@@ -438,5 +439,12 @@ export default function() {
     return cg;
   };
 
+  cg.linkFactor = function(_) {
+    if (!arguments.length) return linkFactor;
+    linkFactor = _;
+    forceLink.strength(d => d.value/linkFactor);
+    simulation.alpha(0.5).restart();
+    return cg;
+  };
   return cg;
 }
