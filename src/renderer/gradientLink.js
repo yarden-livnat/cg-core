@@ -56,6 +56,8 @@ export default function () {
 
   };
 
+  Link.highlight = function() {}
+
   Link.init = function(svg) {
     let svgDefs = svg.select('defs');
     if (svgDefs.empty()) svgDefs = svg.append('defs');

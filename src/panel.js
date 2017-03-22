@@ -4,24 +4,27 @@
 
 import * as d3 from 'd3';
 import Link from './renderer/lineLink';
-import {Link as arrowLink} from './renderer/arrowLink';
-import {Link as arcLink} from './renderer/arcLink';
-import {Link as gradientLink} from './renderer/gradientLink';
+import ArrowLink from './renderer/arrowLink';
+import ArcLink from './renderer/arcLink';
+import GradientLink from './renderer/gradientLink';
 import tagNode from './renderer/tagNode';
 import collide from './forceRectCollide'; 
 // import '../styles/cg-core.css!';
+
 
 export default function() {
   let width = 400, height = 400;
   let graph = {nodes: [], links: {}},
     version = 0;
-  let charge = -30, charge_dist = 100, linkFactor=50;
+  let charge = -150, charge_mindist = 1, charge_maxdist = 200, linkFactor=20;
+  let d_0 = 300, d_1 = 10, d_2 = 500;
+  let restart_alpha = 0.6;
 
   let svg, svgNodes, svgLinks, overlay,
     d3nodes, d3links,
     listeners = d3.dispatch('select', 'exclude', 'highlight', 'highlight_link'),
     visNode = tagNode().label(d => d.label),
-    visLink = Link(),
+    visLink = ArrowLink(),
     showEdges = false
   ;
 
@@ -31,11 +34,12 @@ export default function() {
    * Simulation
    */
 
-  let forceCharge = d3.forceManyBody().strength(function() {return charge;}).distanceMax(charge_dist);
+  let forceCharge = d3.forceManyBody().strength(function() {return charge;}).distanceMin(charge_mindist).distanceMax(charge_maxdist);
 
   let forceLink = d3.forceLink()
     .id(function(d) { return d.id; })
-    .strength(function(d) {return d.value/linkFactor; })
+    .distance(d =>  d.r > 0 ? d_0 + d.value*(d_1 - d_0) : d_1 + d.value(d_2-d_1))
+    .strength(function(d) {return d.r/linkFactor; })
     .iterations(5);
   
   let forceCollide = collide()
@@ -51,8 +55,8 @@ export default function() {
     .force('link', forceLink)
     .force('collide', forceCollide)
     // .force('center', d3.forceCenter().x(width/2).y(height/2))
-    // .force('x', d3.forceX(width/2).strength(0.01))
-    // .force('y', d3.forceY(height/2).strength(0.01))
+    .force('x', d3.forceX(width/2).strength(0.001))
+    .force('y', d3.forceY(height/2).strength(0.001))
     .on('tick', ticked)
     // .on('end', () => console.log('simulation ended'))
     .stop();
@@ -273,7 +277,7 @@ export default function() {
     }
     updatePositions(svgNodes.selectAll('.node'));
     go = true;
-    if (go) simulation.alpha(0.2).restart();
+    if (go) simulation.alpha(0.5).restart();
   }
 
 
@@ -426,25 +430,51 @@ export default function() {
     if (!arguments.length) return charge;
     charge = _;
     console.log('set charge ', _);
-    forceCharge.strength(() => charge);
-    simulation.alpha(0.5).restart();
+    forceCharge.strength(charge);
+    simulation.alpha(restart_alpha).restart();
     return cg;
   };
 
-  cg.charge_dist = function(_) {
-    if (!arguments.length) return charge_dist;
-    charge_dist = _;
-    forceCharge.distanceMax(_);
-    simulation.alpha(0.5).restart();
+  cg.charge_mindist = function(_) {
+    if (!arguments.length) return charge_mindist;
+    charge_mindist = _;
+    forceCharge.distanceMin(_);
+    simulation.alpha(restart_alpha).restart();
     return cg;
   };
+
+  cg.charge_maxdist = function(_) {
+    if (!arguments.length) return charge_maxdist;
+    charge_maxdist = _;
+    forceCharge.distanceMax(_);
+    simulation.alpha(restart_alpha).restart();
+    return cg;
+  };
+
+  cg.link_d0 = function(_) {
+    if (!arguments.length) return d_0;
+    d_0 = _;
+    forceLink.distance(d => d.r > 0 ? d_0 + d.value*(d_1 - d_0) : d_1 + d.value*(d_2-d_1));
+    simulation.alpha(restart_alpha).restart();
+    return cg;
+  };
+
+  cg.link_d1 = function(_) {
+    if (!arguments.length) return d_1;
+    d_1 = _;
+    forceLink.distance(d => d.r > 0 ? d_0 + d.value*(d_1 - d_0) : d_1 + d.value*(d_2-d_1));
+    simulation.alpha(restart_alpha).restart();
+    return cg;
+  };
+
 
   cg.linkFactor = function(_) {
     if (!arguments.length) return linkFactor;
     linkFactor = _;
     forceLink.strength(d => d.value/linkFactor);
-    simulation.alpha(0.5).restart();
+    simulation.alpha(restart_alpha).restart();
     return cg;
   };
+
   return cg;
 }

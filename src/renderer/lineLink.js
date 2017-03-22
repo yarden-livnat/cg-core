@@ -5,6 +5,10 @@
 import createElement from './createElement';
 import * as d3 from 'd3';
 
+let pos_color = '#bbb';
+let neg_color = '#f3562f';
+let highlight_color = '#4369e0';
+
 export default function () {
   let widthScale = d3.scaleQuantize()
     .domain([0, 1])
@@ -12,9 +16,9 @@ export default function () {
     .range([0.5, 1, 1.5, 2]),
 
     opacityScale = d3.scaleLinear()
-      .domain([0.2,1])
+      .domain([0,1])
       // .range([0.4, 0.8]);
-      .range([0.5,0.7]);
+      .range([0.2,0.6]);
 
   function Link(selection) {
     selection.attr('class', 'link');
@@ -32,6 +36,7 @@ export default function () {
       .attr('y2', function(d) { return d.target.zy; })
       .style('stroke-width', function (d) { return  widthScale(d.value)+ 'px'; })
       .style('stroke-opacity', d => opacityScale(d.value))
+      .style('stroke', d => d.r >= 0 ? pos_color : neg_color)
     ;
   };
 
@@ -39,9 +44,11 @@ export default function () {
 		selection
       // .transition()
       // .duration(250)
-      .style('stroke', d => func(d) && 'red' || '#ddd');
+      .style('stroke', d => func(d) ? highlight_color : d.r >= 0 ? pos_color : neg_color);
       // .classed('highlight', d => on && (d.source == node || d.target == node));
   };
+
+  Link.init = function(svg) {}
 
   return Link;
 }
