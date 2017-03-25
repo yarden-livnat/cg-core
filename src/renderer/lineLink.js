@@ -13,7 +13,7 @@ export default function () {
   let widthScale = d3.scaleQuantize()
     .domain([0, 1])
     // .range([0.5, 0.75, 1, 1.25]),
-    .range([0.5, 1, 1.5, 2]),
+    .range([0.5, 1, 1.5]),
 
     opacityScale = d3.scaleLinear()
       .domain([0,1])

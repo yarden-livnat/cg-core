@@ -17,8 +17,8 @@ export default function() {
   let graph = {nodes: [], links: {}},
     version = 0;
   let charge = -150, charge_mindist = 1, charge_maxdist = 200, linkFactor=20;
-  let d_0 = 300, d_1 = 10, d_2 = 500;
-  let restart_alpha = 0.6;
+  let d_0 = 10, d_1 = 300, d_2 = 900;
+  let restart_alpha = 0.5;
 
   let svg, svgNodes, svgLinks, overlay,
     d3nodes, d3links,
@@ -34,11 +34,13 @@ export default function() {
    * Simulation
    */
 
+  let dist = d => d.r > 0 ? d_0 + (1-d.value)*(d_1 - d_0) : d_1 + d.value*(d_2-d_1);
+
   let forceCharge = d3.forceManyBody().strength(function() {return charge;}).distanceMin(charge_mindist).distanceMax(charge_maxdist);
 
   let forceLink = d3.forceLink()
     .id(function(d) { return d.id; })
-    .distance(d =>  d.r > 0 ? d_0 + d.value*(d_1 - d_0) : d_1 + d.value(d_2-d_1))
+    .distance(dist)
     .strength(function(d) {return d.r/linkFactor; })
     .iterations(5);
   
@@ -55,8 +57,8 @@ export default function() {
     .force('link', forceLink)
     .force('collide', forceCollide)
     // .force('center', d3.forceCenter().x(width/2).y(height/2))
-    .force('x', d3.forceX(width/2).strength(0.001))
-    .force('y', d3.forceY(height/2).strength(0.001))
+    .force('x', d3.forceX(width/2).strength(0.01))
+    .force('y', d3.forceY(height/2).strength(0.01))
     .on('tick', ticked)
     // .on('end', () => console.log('simulation ended'))
     .stop();
@@ -454,7 +456,7 @@ export default function() {
   cg.link_d0 = function(_) {
     if (!arguments.length) return d_0;
     d_0 = _;
-    forceLink.distance(d => d.r > 0 ? d_0 + d.value*(d_1 - d_0) : d_1 + d.value*(d_2-d_1));
+    forceLink.distance(dist);
     simulation.alpha(restart_alpha).restart();
     return cg;
   };
@@ -462,7 +464,7 @@ export default function() {
   cg.link_d1 = function(_) {
     if (!arguments.length) return d_1;
     d_1 = _;
-    forceLink.distance(d => d.r > 0 ? d_0 + d.value*(d_1 - d_0) : d_1 + d.value*(d_2-d_1));
+    forceLink.distance(dist);
     simulation.alpha(restart_alpha).restart();
     return cg;
   };
