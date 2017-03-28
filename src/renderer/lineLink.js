@@ -21,7 +21,8 @@ export default function () {
       .range([0.2,0.6]);
 
   function Link(selection) {
-    selection.attr('class', 'link');
+    selection
+      .attr('class', 'link');
   }
 
   Link.create = function() {

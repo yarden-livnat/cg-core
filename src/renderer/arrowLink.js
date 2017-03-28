@@ -42,7 +42,7 @@ export default function () {
       .attr('x2', function(d) { return d.target.zx; })
       .attr('y2', function(d) { return d.target.zy; })
       .attr("marker-start", function (d) { return d.direction == -1 ? "url(#arrowhead-start)" : ""; })
-      .attr("marker-end", function (d) { return !d.direction || d.direction == 1 ? "url(#arrowhead-end)" : ""; })
+      .attr("marker-end", function (d) { return d.direction == 1 ? "url(#arrowhead-end)" : ""; })
       .style('stroke-width', function (d) { return  widthScale(d.value)+ 'px'; })
       .style('stroke-opacity', d => opacityScale(d.value))
       .style('stroke', d => d.r >= 0 ? pos_color : neg_color);
